@@ -1,0 +1,22 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces An example line of record for ENDF file}}{5}{figure.4.1}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces An example line of TEXT record for ENDF file}}{6}{figure.4.2}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces An example line of CONT record for ENDF file}}{6}{figure.4.3}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces An example line of LIST record for ENDF file}}{7}{figure.4.4}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces An example line of TAB1 record for ENDF file}}{8}{figure.4.5}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces An example line of TAB2 record for ENDF file}}{8}{figure.4.6}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces An example showing the ENDF interpolation rules of a function, the indices start from 1, but in C++ language, the indices start from 0}}{12}{figure.4.7}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces The ER diagram of the database}}{19}{figure.5.1}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces The header entities and the entities followed}}{20}{figure.5.2}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

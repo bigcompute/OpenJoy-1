@@ -1,0 +1,90 @@
+\contentsline {chapter}{List of Figures}{iv}{section*.2}
+\contentsline {chapter}{List of Tables}{v}{section*.3}
+\contentsline {chapter}{List of Programs}{vi}{section*.4}
+\contentsline {chapter}{List of Appendices}{vii}{section*.6}
+\contentsline {chapter}{List of Abbreviations}{viii}{section*.8}
+\contentsline {chapter}{Abstract}{ix}{section*.9}
+\vspace {1.3ex}\noindent {\bf Chapter}\vspace {1.3ex}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}CMS: Constants Maintenance System}{2}{chapter.2}
+\contentsline {section}{\numberline {2.1}List of constants used}{2}{section.2.1}
+\contentsline {section}{\numberline {2.2}C++ Data Structures}{2}{section.2.2}
+\contentsline {chapter}{\numberline {3}NIST: NIST Nuclear Data System}{3}{chapter.3}
+\contentsline {section}{\numberline {3.1}Isotopes and Elements}{3}{section.3.1}
+\contentsline {chapter}{\numberline {4}ENDF: ENDF Evaluated File System}{5}{chapter.4}
+\contentsline {section}{\numberline {4.1}ENDF-6 Format}{5}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}TEXT Records}{5}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}CONT Records}{6}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}LIST Records}{6}{subsection.4.1.3}
+\contentsline {subsection}{\numberline {4.1.4}TAB1 Records}{6}{subsection.4.1.4}
+\contentsline {subsection}{\numberline {4.1.5}TAB2 Records}{7}{subsection.4.1.5}
+\contentsline {section}{\numberline {4.2}C++ Data Structure \& Application Interfaces}{9}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Fundamental Computational Data Structures}{9}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Fission Yield Data Structures}{12}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Resonance Data Structure}{14}{subsection.4.2.3}
+\contentsline {subsection}{\numberline {4.2.4}Reaction Data Structure}{14}{subsection.4.2.4}
+\contentsline {subsection}{\numberline {4.2.5}Application Interfaces (APIs)}{16}{subsection.4.2.5}
+\contentsline {chapter}{\numberline {5}NDLS: Nuclear Data Library System}{17}{chapter.5}
+\contentsline {section}{\numberline {5.1}General Description}{17}{section.5.1}
+\contentsline {section}{\numberline {5.2}Database ER Diagram and Schema}{17}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}ER Diagram}{17}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Material Table}{20}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}Description Table}{20}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.4}Type Table}{21}{subsection.5.2.4}
+\contentsline {subsection}{\numberline {5.2.5}Header Table}{22}{subsection.5.2.5}
+\contentsline {subsection}{\numberline {5.2.6}Inheritance Table}{22}{subsection.5.2.6}
+\contentsline {subsection}{\numberline {5.2.7}Function Table}{23}{subsection.5.2.7}
+\contentsline {subsection}{\numberline {5.2.8}List Table}{23}{subsection.5.2.8}
+\contentsline {subsection}{\numberline {5.2.9}Interpolation Table}{23}{subsection.5.2.9}
+\contentsline {section}{\numberline {5.3}C++ Data Structure \& Application Interfaces}{25}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Data Structure}{25}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Application Interfaces (APIs)}{25}{subsection.5.3.2}
+\contentsline {chapter}{\numberline {6}LS: Linearization System}{26}{chapter.6}
+\contentsline {chapter}{\numberline {7}XLS: Cross Section Linearization System}{27}{chapter.7}
+\contentsline {section}{\numberline {7.1}Algorithm}{27}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Histogram}{27}{subsection.7.1.1}
+\contentsline {subsection}{\numberline {7.1.2}Linear-Linear Interpolation}{27}{subsection.7.1.2}
+\contentsline {subsection}{\numberline {7.1.3}Other Laws of Interpolation}{27}{subsection.7.1.3}
+\contentsline {subsection}{\numberline {7.1.4}Removal of Duplicated Points}{28}{subsection.7.1.4}
+\contentsline {section}{\numberline {7.2}C++ Data Structures \& APIs}{28}{section.7.2}
+\contentsline {chapter}{\numberline {8}XRS: Cross Section Reconstruction System}{29}{chapter.8}
+\contentsline {section}{\numberline {8.1}Resolved Resonance}{29}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}SLBW: Single-level Breit-Wigner}{29}{subsection.8.1.1}
+\contentsline {subsubsection}{\numberline {8.1.1.1}Data Format}{29}{subsubsection.8.1.1.1}
+\contentsline {subsubsection}{\numberline {8.1.1.2}Mathematical Theory}{31}{subsubsection.8.1.1.2}
+\contentsline {subsection}{\numberline {8.1.2}MLBW: Multilevel Breit-Wigner}{35}{subsection.8.1.2}
+\contentsline {subsubsection}{\numberline {8.1.2.1}Data Format}{35}{subsubsection.8.1.2.1}
+\contentsline {subsubsection}{\numberline {8.1.2.2}Mathematical Theory}{35}{subsubsection.8.1.2.2}
+\contentsline {subsection}{\numberline {8.1.3}R-M: Reich Moore}{35}{subsection.8.1.3}
+\contentsline {subsubsection}{\numberline {8.1.3.1}Data Format}{35}{subsubsection.8.1.3.1}
+\contentsline {subsubsection}{\numberline {8.1.3.2}Mathematical Theory}{35}{subsubsection.8.1.3.2}
+\contentsline {chapter}{\numberline {9}DBS: Doppler Broadening System}{36}{chapter.9}
+\contentsline {section}{\numberline {9.1}Mathematical Background of Doppler Broadening}{36}{section.9.1}
+\contentsline {section}{\numberline {9.2}Theory of SIGMA1 Method}{38}{section.9.2}
+\contentsline {subsection}{\numberline {9.2.1}Grid for Data Points}{38}{subsection.9.2.1}
+\contentsline {subsection}{\numberline {9.2.2}SIGMA1 Algorithm}{39}{subsection.9.2.2}
+\contentsline {section}{\numberline {9.3}SIGMA1 Code Approximation}{41}{section.9.3}
+\contentsline {section}{\numberline {9.4}C++ Data Structure \& Application Interfaces}{41}{section.9.4}
+\contentsline {subsection}{\numberline {9.4.1}Data Structure}{41}{subsection.9.4.1}
+\contentsline {subsection}{\numberline {9.4.2}Application Interfaces (APIs)}{42}{subsection.9.4.2}
+\contentsline {subsubsection}{\numberline {9.4.2.1}Method: proceedWithSigma1}{42}{subsubsection.9.4.2.1}
+\contentsline {chapter}{\numberline {10}ALS: Angle Linearization System}{43}{chapter.10}
+\contentsline {section}{\numberline {10.1}Emitted Particle Angular Distribution}{43}{section.10.1}
+\contentsline {section}{\numberline {10.2}Representation in ENDF Data File}{43}{section.10.2}
+\contentsline {subsection}{\numberline {10.2.1}Legendre Expansion}{44}{subsection.10.2.1}
+\contentsline {subsection}{\numberline {10.2.2}ENDF Interpolation Laws}{44}{subsection.10.2.2}
+\contentsline {section}{\numberline {10.3}Linearization of Angular Distribution}{44}{section.10.3}
+\contentsline {chapter}{\numberline {11}CFS: Computational Format System}{45}{chapter.11}
+\contentsline {section}{\numberline {11.1}Fundamental Data Structure Design}{45}{section.11.1}
+\contentsline {subsection}{\numberline {11.1.1}ENDF Interpolation Function}{45}{subsection.11.1.1}
+\contentsline {subsection}{\numberline {11.1.2}Linearly Interpolation Function}{46}{subsection.11.1.2}
+\contentsline {subsection}{\numberline {11.1.3}Probability Function}{46}{subsection.11.1.3}
+\contentsline {section}{\numberline {11.2}Reaction Categorization}{46}{section.11.2}
+\contentsline {section}{\numberline {11.3}Common Energy Grid}{46}{section.11.3}
+\contentsline {section}{\numberline {11.4}Cross Sections}{47}{section.11.4}
+\contentsline {section}{\numberline {11.5}Energy Angular Distributions}{47}{section.11.5}
+\contentsline {subsection}{\numberline {11.5.1}General Distributions}{48}{subsection.11.5.1}
+\contentsline {subsection}{\numberline {11.5.2}Decoupled Distributions}{48}{subsection.11.5.2}
+\contentsline {subsection}{\numberline {11.5.3}Yield of Reactions}{49}{subsection.11.5.3}
+\contentsline {chapter}{\numberline {12}ACE: ACE Evaluated File System}{51}{chapter.12}
+\contentsline {chapter}{\numberline {13}ADLS: ACE Data Library System}{52}{chapter.13}

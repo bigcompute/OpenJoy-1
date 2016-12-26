@@ -1,0 +1,184 @@
+The data proceeded by previous module are needed to be packed in a computational friendly format. In this chapter, we discuss the design in details. The C++ data structure is described as well. The design goal of the CFS module is to make it easy for programmers to build transport software on top of this module. To achieve that goal, we describe the data with some concepts that we think will give the programmers intuitively access to the data for their transport calculations. 
+
+\section{Fundamental Data Structure Design}
+To make our data structures as intuitive and as expressive as possible, some fundamental data structures need to be designed first. In this section, we discuss them.
+
+\subsection{ENDF Interpolation Function}
+The CFS module directly inherits the interpolation function from the original ENDF library, which mathematically describe a mapping from a number to an object:
+\begin{eqnarray}
+f &:& x\in\{\mbox{ number }\}\;\to\;y\in\{\mbox{ any data type }\}.
+\end{eqnarray}
+The function is described the interpolation laws and sampled data points:
+\begin{eqnarray}
+\mbox{interp} &:& 
+\left(
+\begin{array}{c}
+i_1\\
+\vdots\\
+i_K
+\end{array}
+\right)\in\{\mbox{ integer index }\}
+\;\to\;
+\left(
+\begin{array}{c}
+l_1\\
+\vdots\\
+l_K
+\end{array}
+\right)\in\{\mbox{ interpolation law }\}, \\
+\mbox{data} &:& 
+\left(
+\begin{array}{c}
+x_1\\
+\vdots\\
+x_N
+\end{array}
+\right)\in\{\mbox{ number }\}
+\;\to\;
+\left(
+\begin{array}{c}
+y_1\\
+\vdots\\
+y_N
+\end{array}
+\right)\in\{\mbox{ any data type }\}.
+\end{eqnarray}
+There are a general version, which takes an object as the function $y$ value type, and a specific version, which takes double floating numbers as the function $y$ value type. The data structure are listed here:
+\begin{verbatim}
+template<typename T, typename H = ENDFEmpty>
+struct CFSObjectFunction : 
+ENDFObjectInterpolationFunction<T, H> {
+    
+    // Additional interfaces
+    
+};
+
+struct CFSFunction : 
+ENDFInterpolationFunction {
+    
+    // Additional interfaces
+    
+};
+\end{verbatim}
+
+\subsection{Linearly Interpolation Function}
+
+
+\subsection{Probability Function}
+
+
+
+\section{Reaction Categorization}
+
+\section{Common Energy Grid}
+All cross sections are based on a common energy grid with cross sections being linearly interpolated between points on the grid. The energy grid is chosen so that the interpolation delivers a maximum relative error of 0.1\% from the true value. The CFS module will combine related parts in the neutron data structure and derive the command energy grid. We define the energy grid as:
+\begin{eqnarray}
+E_i,\;\; i=1\dots N.
+\end{eqnarray}
+The C++ data structure is described here:
+\begin{verbatim}
+struct CFSEnergyGrid {
+    // The energy data points in eV
+    std::vector<double> energiesEv;
+};
+\end{verbatim}
+
+\section{Cross Sections}
+Each reaction has an $MT$ number whose meaning is introduced in Table \ref{tab:mt-meaning}. The cross section on the energy grid is given by:
+\begin{eqnarray}
+I^{MT} &=& \mbox{starting index of reaction MT},\\[1ex]
+J^{MT} &=& \mbox{ending index of reaction MT},\\[1ex]
+\sigma_i^{MT}, && i=I^{MT}\dots J^{MT}.
+\end{eqnarray}
+The cross section $\sigma_i^{MT}$ may be only defined for a portion of the energy grid, i.e. from index $I^{MT}$ to index $J^{MT}$, and is extended as a function of $1/v$ (or $1/\sqrt{E}$) below the region of interest, and is extended as a constant above the region of interest. The C++ data structure is described here:
+\begin{verbatim}
+struct CFSCrossSection {
+    
+    // The starting index of the cross section 
+    // on the energy grid
+    long startIndex = 0;
+    
+    // The cross section data points in barn
+    std::vector<double> sigmasBarn;
+};
+\end{verbatim}
+
+
+\section{Energy Angular Distributions}
+In this section we discuss the energy and angle distributions of the particles emitting from a reaction. 
+
+\subsection{General Distributions}
+When neutron or other particles incident on the target particle, particles may emitted. For an outgoing particle $i$, the differential cross section for an incoming particle with energy $E$ and outgoing particle with energy $E'$ and an angular cosine $\mu$ between them is given by:
+\begin{eqnarray}
+\label{eq:cfs_diff_xsec}
+\sigma_i(\mu,E,E') &=& \frac{1}{2\pi}\,\sigma(E)\,y_i(E)\,f_i(\mu,E,E'),
+\end{eqnarray}
+where the terms are defined as:
+\begin{eqnarray}
+\sigma(E) &=& \mbox{reaction cross section for incoming particle at energy $E$},\\
+y_i(E) &=& \mbox{number of particles $i$ emitted  incoming particle at energy $E$},\\
+f_i(\mu,E,E') &=& \mbox{a probability density function to describe outgoing particle},
+\end{eqnarray}
+and the distribution $f_i(\mu,E,E')$ has the normalization:
+\begin{eqnarray}
+\int_{0}^{E_{max}'}dE'\int_{-1}^{1}d\mu\, f_i(\mu,E,E') &=& 1,
+\end{eqnarray}
+where $E_{max}'$ is the maximum possible energy of outgoing particle. The coupled distribution is given in ENDF file 6.
+
+\subsection{Decoupled Distributions}
+There are cases that the energy and angular distributions can be decoupled into the angular part and the energy part. The key is that the energy $E'$ and the angle $\mu$ are independent for each other. In this case, we express the distribution $f_i$ as the product of two functions:
+\begin{eqnarray}
+f_i(\mu,E,E') &=& p_i(E,E')\,g_i(\mu,E),
+\end{eqnarray}
+where the $p_i$ function is the energy distribution part and the $g_i$ function is the angular part. The normalization conditions are:
+\begin{eqnarray}
+\label{eq:cfs_p_norm}
+\int_{0}^{E_{max}'}p_i(E,E')\,dE' &=& 1,\\
+\label{eq:cfs_g_norm}
+\int_{-1}^{1}g_i(\mu,E)\,d\mu &=& 1.
+\end{eqnarray}
+The differential cross section is given by:
+\begin{eqnarray}
+\sigma_i(\mu,E,E') &=& \left[\frac{1}{2\pi}\,g_i(\mu,E)\right]\,\sigma(E)\,y_i(E)\,p_i(E,E').
+\end{eqnarray}
+The decoupled angular distribution is given in ENDF file 4, and the decoupled energy distribution is given in ENDF file 5. Sometimes, the energy law $p_i(E,E')$ is too complicated to be represented in s a single law, we express as the sum of components:
+\begin{eqnarray}
+p_i(E,E') &=& \sum_{k=1}^{K} \alpha_k(E) q_{i,k}(E,E'),
+\end{eqnarray}
+where the functions $q_{i,k}(E,E')$ are $k$th partial law with a validity function $\alpha_{k}(E)$:
+\begin{eqnarray}
+\sum_{k=1}^{K}\alpha_k(E) &=& 1.
+\end{eqnarray}
+Moreover, each partial law is normalized as well:
+\begin{eqnarray}
+\int_{0}^{E_{max}'}q_{i,k}(E,E')\,dE' &=& 1,
+\end{eqnarray}
+which keeps the total distribution $p_i$ normalized as equation (\ref{eq:cfs_p_norm}).
+
+\subsection{Yield of Reactions}
+In the differential cross section $\ref{eq:cfs_diff_xsec}$, one important factor is the yield $y_i(E)$, or the number of partials emitted from the reaction. In this subsection, we discuss the possible yields from reactions. In ENDF description system, a yield can be given implicit from the type of reaction or from the yield function from File 6. There are two possibilities of the yield function: a constant or a function of energy. Since the neutron is the most important particle in reactor physics calculation, we summarize the neutron yields in Table \ref{tab:cfs_neutron_yield}.
+
+\begin{small}
+\begin{longtable}{| p{2cm} | p{2cm} | p{2cm} || p{2cm} | p{2cm} | p{2cm} |}
+\hline 
+Reaction & Possible Constant $y$ & Be Function $y(E)$ &Reaction & Possible Constant $y$ & Be Function $y(E)$\\ \hline\hline
+MT = 2 & 1 & NO & MT = 5 & $N\geq 0$ & YES \\ \hline
+MT = 11 & 2 & NO & MT = 16 & 2 & NO \\ \hline
+MT = 17 & 3 & NO & MT = 18 & N/A & YES \\ \hline
+MT = 19 & N/A & YES & MT = 20 & N/A & YES \\ \hline
+MT = 21 & N/A & YES & MT = 22 & 1 & NO \\ \hline
+MT = 23 & 1 & NO & MT = 24 & 2 & NO \\ \hline
+MT = 25 & 3 & NO & MT = 28 & 1 & NO \\ \hline
+MT = 29 & 1 & NO & MT = 30 & 2 & NO \\ \hline
+MT = 32 & 1 & NO & MT = 33 & 1 & NO \\ \hline
+MT = 34 & 1 & NO & MT = 35 & 2 & NO \\ \hline
+MT = 36 & 1 & NO & MT = 37 & 4 & NO \\ \hline
+MT = 41 & 2 & NO & MT = 42 & 3 & NO \\ \hline
+MT = 44 & 1 & NO & MT = 45 & 1 & NO \\ \hline
+MT = 50+$i$, $1\leq i\leq 40$ & 1 & NO & MT = 91 & 1 & NO \\ \hline
+MT $>100$ & 0 & NO & & & \\ \hline
+\caption{Neutron yields for reactions}
+\label{tab:cfs_neutron_yield}
+\end{longtable}
+\end{small}
+

@@ -1,0 +1,46 @@
+The given cross sections in the reactions may not be linearized. As a result, they can be easily summed or accumulated. 
+
+\section{Algorithm}
+The ENDF interpolation tabular data points are divided into regions, each of which uses an integer from 1 to 5 to indicate the method of interpolation. 
+
+\subsection{Histogram}
+If the interpolation law number is 1, the method of interpolation represents a histogram. The points on the region boundaries will remain the same, and each point internal to the region will be accompanied by another point with a $y$ value equal to the previous point. 
+
+\subsection{Linear-Linear Interpolation}
+If the interpolation law number is 2, the method of interpolation is linear to linear. All points will remain the same. No modifications will be applied.
+
+\subsection{Other Laws of Interpolation}
+If the interpolation law number betweens 3 and 5, additional data points may be necessary to be inserted into the region to make the error of linearization below a certain level of requirement, for example $0.1\%$. The algorithm applied is called the method of inverted stack. 
+
+\subsection{Removal of Duplicated Points}
+Sometimes, the data points after the linearization may have duplications. That is the case that for two points: $(x_1,y_1)$ and $(x_2,y_2)$, we have:
+\begin{eqnarray}
+x_1 &=& x_2,\\
+|y_1-y_2| &<& \epsilon,
+\end{eqnarray}
+where $\epsilon$ is small value such as $1\times10^{-10}$ barn.
+
+\section{C++ Data Structures \& APIs}
+The XLS class has a static method called `linearizeENDFInterpFunc', which takes a ENDF interpolation table function and return a vector of cross section data points.
+\begin{verbatim}
+struct XLSXsecPair {
+    double energyEv  = 0.;
+    double sigmaBarn = 0.;
+};
+
+// Discontinuity of cross section may present
+struct XLSXsec {
+    std::vector<XLSXsecPair> xspairs;
+};
+
+// The cross section linearization system will take
+// an ENDFInterpolationFunction representation
+// of a cross section data, and linearlize it
+// into an XLSXsec data format, the tolerance in the fraction
+// of the relative error is given
+class XLS {
+public:
+    static XLSXsec linearizeENDFInterpFunc
+    (const ENDFInterpolationFunction& endf, double tol);
+};
+\end{verbatim}

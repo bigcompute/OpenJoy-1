@@ -1,0 +1,152 @@
+The evaluated nuclear data are not easily used by the neutron transport softwares. So further processing are necessary. One important step is to discretize the cross sections on an energy grid with the cross sections linearized on it. In this chapter, we first discuss the topic of resonance cross section reconstruction and then how to combine the resonance with tabulated cross sections.
+
+\section{Resolved Resonance}
+In this section, we discuss the mathematical theories behind cross section evaluations and the method of linearization. First, we focus on the resolved resonance regions. Second, the unresolved resonance region is discussed. 
+
+\subsection{SLBW: Single-level Breit-Wigner}
+The Single-Level Breit-Wigner (SLBW) is the most simple ways of describing the resonance peaks. First the format of the data provided by the ENDF database is presented. Second, the mathematical theories behind for how to evaluating cross sections at a given energy is discussed. Third, how to write a computer algorithm is discussed.
+
+\subsubsection{Data Format}
+The data given from the ENDF database are discussed now. First, we list some scalar variables:
+\\\\
+\begin{small}
+\begin{tabular}{l l l L{6cm}}
+Variable Name & ENDF Name & Type & Meaning \\\hline
+$I$ & SPI & floating & the total spin \\
+$\hat{a}$ & AP & floating & scattering radius in units of $10^{-12}$ cm \\
+$N$ & NLS & integer & the number of neutron orbital angular momentum \\
+$A$ & AWRI & floating & the ratio of the mass of the isotope to that of a neutron \\
+$a$ & N/A & floating & the channel radius \\
+$f$ & NAPS & integer & radius choice flag\\
+\end{tabular}
+\end{small}
+\\\\
+There are $N$ angular momenta. For each angular momentum $l_i$ with $1\leq i\leq N$, there are some variables are defined depending on the index $i$:
+\\\\
+\begin{small}
+\begin{tabular}{l l l L{6cm}}
+Variable Name & ENDF Name & Type & Meaning \\\hline
+$l_i$ & L & floating & angular momentum at index $i$\\
+$M_i$ & NRS & integer & number of resolved resonances for $l_i$ \\
+$Q_i$ & QX & floating & the Q-value used in calculating the penetrability factor \\
+\end{tabular}
+\end{small}
+\\\\
+There are some variables defined for the resonance defined at the resonance index $1\leq r\leq M_i$ for the angular momentum $l_i$. They are listed in the following table:
+\\\\
+\begin{small}
+\begin{tabular}{l l l L{6cm}}
+Variable Name & ENDF Name & Type & Meaning \\\hline
+$E_{ir}$ & ER & floating & the resonance energy measured in the laboratory system for $r$th resonance and angular momentum $l_i$ \\
+$J_{ir}$ & AJ & floating & the spin for $r$th resonance and angular momentum $l_i$\\
+$\Gamma_{ir}^0$ & GT & floating & the resonance total width evaluated at energy $E_{ir}$ \\
+$\Gamma_{n,ir}^0$ & GN & floating & the neutron width evaluated at energy $E_{ir}$ \\
+$\Gamma_{\gamma,ir}^0$ & GG & floating & radiation width evaluated at energy $E_{ir}$ \\
+$\Gamma_{f,ir}^0$ & GF & floating & fission width evaluated at energy $E_{ir}$\\
+$\sigma_{m,ir}$ & N/A & floating & maximum cross section at energy $E_{ir}$
+\end{tabular}
+\end{small}
+\\\\
+
+\subsubsection{Mathematical Theory}
+There are several commonly used types of representations for describing the resolved resonances. The first one is the Single-Level Breit-Wigner Representation (SLBW), the resonance elastics cross section ($\sigma_n$), the fission cross section ($\sigma_f$), the capture cross section ($\sigma_\gamma$), and the potential scattering cross section ($\sigma_p$) are given by:
+\begin{eqnarray}
+\sigma_n (E) &=& \sigma_p(E) \nonumber\\[1ex]
+&& + \sum_{i=1}^{N} \sum_{r=1}^{M_i} \sigma_{m,ir}(E)\left\{\left[\cos2\phi_{l_i}(E)-(1-\frac{\Gamma_{n,ir}(E)}{\Gamma_{ir}(E)})\right]\psi(x_{ir}(E))\right.\nonumber\\
+&& \left. + \sin2\phi_{l_i}(E)\frac{}{}\chi(x_{ir}(E))\right\}, \\
+\sigma_{f} (E) &=& \sum_{i=1}^{N}\sum_{r=1}^{M_i} \sigma_{m,ir}(E) \frac{\Gamma_{f,ir}^0}{\Gamma_{ir}(E)} \psi(x_{ir}(E)),\\
+\sigma_{\gamma}(E) &=&  \sum_{i=1}^{N}\sum_{r=1}^{M_i} \sigma_{m,ir}(E) \frac{\Gamma_{\gamma,ir}^0}{\Gamma_{ir}(E)} \psi(x_{ir}(E)),\\
+\sigma_p (E) &=& \sum_{i=1}^{N} \frac{4\pi}{k(E)^2}(2l_i+1)\sin^2\phi_{l_i}(E),
+\end{eqnarray}
+where the given quantities are:
+\begin{eqnarray}
+E &=& \mbox{incident laboratory energy in units of eV},\\
+A &=& \mbox{isotope weight ratio to neutron}, \\
+N &=& \mbox{number of angular momentum}, \\
+f &=& \mbox{radius choice flag either 0 or 1}, \\
+l_i &=& i\mbox{th angular momentum},\; 1\leq i\leq N,\\
+M_i &=& \mbox{number of resonance associated with }l_i,\\ 
+\hat{a} &=& \mbox{scattering radius}, \\
+J_{ir} &=& \mbox{spin for angular momentum }l_i\mbox{ and $r$th resonance }, \nonumber\\
+&&1\leq i\leq N,\;1\leq r\leq M_i,\\
+I &=& \mbox{total spin},\\
+E_{ir} &=& \mbox{energy at the center of resonance},  \;1\leq i\leq N,\;1\leq r\leq M_i,\\
+\Gamma_{ir}^0 &=& \mbox{resonance total width at } E_{ir}, \;1\leq i\leq N,\;1\leq r\leq M_i,\\
+\Gamma_{n,ir}^0 &=& \mbox{resonance neutron width at } E_{ir}, \;1\leq i\leq N,\;1\leq r\leq M_i,\\
+\Gamma_{\gamma,ir}^0 &=& \mbox{resonance capture width at } E_{ir}, \;1\leq i\leq N,\;1\leq r\leq M_i,\\
+\Gamma_{f,ir}^0 &=& \mbox{resonance fission width at } E_{ir}, \;1\leq i\leq N,\;1\leq r\leq M_i,
+\end{eqnarray}
+The energy dependent resonance widths are:
+\begin{eqnarray}
+\Gamma_{n,ir}(E) &=& \frac{P_{l_i}(E)\Gamma_{n,ir}^0}{P_{l_i}(|E_{ir}|)}, \;1\leq i\leq N,\;1\leq r\leq M_i,\\
+\Gamma_{ir}(E) &=& \Gamma_{n,ir}(E) + \Gamma_{ir}^0 - \Gamma_{n,ir}^0, \;1\leq i\leq N,\;1\leq r\leq M_i,
+\end{eqnarray}
+and the derived quantities are:
+\begin{eqnarray}
+k(E) &=& (2.196771\times10^{-3})\frac{A}{A+1}\sqrt{E},\\
+g_{ir} &=& \frac{2J_{ir}+1}{4I+2},\; 1\leq i\leq N,\;1\leq r\leq M_i,\\
+\sigma_{m,ir}(E) &=& \frac{4\pi}{k(E)^2}g_{ir}\frac{\Gamma_{n,ir}(E)}{\Gamma_{ir}(E)},\; 1\leq i\leq N,\;1\leq r\leq M_i,\\
+a &=& \left\{\begin{array}{l l}0.123\;A^{1/3}+0.08, & f=0 \\\hat{a}, & f=1 \end{array}\right.,\\
+\rho(E) &=& k(E)a,\\
+\hat{\rho}(E) &=& k(E)\hat{a},\\
+E_{ir}'(E) &=& E_{ir}+\frac{S_{l_1}(|E_{ir}|)-S_{l_i}(E)}{2P_{l_i}(|E_{ir}|)}\Gamma_{n,ir}^0,\; 1\leq i\leq N,\;1\leq r\leq M_i,\\
+x_{ir}(E) &=& \frac{2(E-E_{ir}'(E))}{\Gamma_{ir}(E)},\; 1\leq i\leq N,\;1\leq r\leq M_i,\\
+\psi(x) &=& \frac{1}{1+x^2},\\
+\chi(x) &=& \frac{x}{1+x^2}.
+\end{eqnarray}
+The penetration factors are defined here:
+\begin{eqnarray}
+P_0(E) &=& \rho(E),\\
+P_1(E) &=& \frac{\rho(E)^3}{1+\rho(E)^2},\\
+P_2(E) &=& \frac{\rho(E)^5}{9+3\rho(E)^2+\rho(E)^4},\\
+P_3(E) &=& \frac{\rho(E)^7}{225+45\rho(E)^2+6\rho(E)^4+\rho(E)^6},\\
+P_4(E) &=& \frac{\rho(E)^9}{11025+1575\rho(E)^2+135\rho(E)^4+10\rho(E)^6+\rho(E)^8}.
+\end{eqnarray}
+The phase shifts are defined here:
+\begin{eqnarray}
+\phi_0(E) &=& \hat{\rho}(E),\\
+\phi_1(E) &=& \hat{\rho}(E)-\tan^{-1}\hat{\rho}(E),\\
+\phi_2(E) &=& \hat{\rho}(E)-\tan^{-1}\frac{3\hat{\rho}(E)}{3-\hat{\rho}(E)^2},\\
+\phi_3(E) &=& \hat{\rho}(E)-\tan^{-1}\frac{15\hat{\rho}(E)-\hat{\rho}(E)^3}{15-6\hat{\rho}(E)^2},\\
+\phi_4(E) &=& \hat{\rho}(E)-\tan^{-1}\frac{105\hat{\rho}(E)-10\hat{\rho}(E)^3}{105-45\hat{\rho}(E)^2+\hat{\rho}(E)^4}.
+\end{eqnarray}
+The shift factors are defined here:
+\begin{eqnarray}
+S_0(E) &=& 0,\\
+S_1(E) &=& -\frac{1}{1+\rho(E)^2},\\
+S_2(E) &=& -\frac{18+3\rho(E)^2}{9+3\rho(E)^2+\rho(E)^4},\\
+S_3(E) &=& -\frac{675+90\rho(E)^2+6\rho(E)^4}{225+45\rho(E)^2+6\rho(E)^4+\rho(E)^6},\\
+S_4(E) &=& -\frac{44100+4725\rho(E)^2+270\rho(E)^4+10\rho(E)^6}{11025+1575\rho(E)^2+135\rho(E)^4+10\rho(E)^6+\rho(E)^8}.
+\end{eqnarray}
+
+Plug in all definitions into the formula for cross sections. We have simplified versions:
+\begin{eqnarray}
+\sigma_{n}(E)  &=& \sigma_p(E) + \frac{\pi}{k(E)^2}\sum_{i=1}^{N}\sum_{r=1}^{M_i}g_{ir}\nonumber\\
+&& \frac{\Gamma_{n,ir}(E)^2-2\Gamma_{n,ir}(E)\Gamma_{ir}(E)\sin^2\phi_{l_i}(E)+2(E-E_{ir}'(E))\sin2\phi_{l_i}(E)}{\frac{1}{4}\Gamma_{ir}^2(E)+(E-E_{ir}'(E))^2}\nonumber\\
+&&\\
+\sigma_{\gamma}(E) &=& \frac{\pi}{k(E)^2}\sum_{i=1}^{N}\sum_{r=1}^{M_i}g_{ir}\frac{\Gamma_{n,ir}(E)\Gamma_{\gamma,ir}^0}{\frac{1}{4}\Gamma_{ir}^2(E)+(E-E_{ir}'(E))^2},\\
+\sigma_{f}(E) &=& \frac{\pi}{k(E)^2}\sum_{i=1}^{N}\sum_{r=1}^{M_i}g_{ir}\frac{\Gamma_{n,ir}(E)\Gamma_{f,ir}^0}{\frac{1}{4}\Gamma_{ir}^2(E)+(E-E_{ir}'(E))^2},\\
+\sigma_{p}(E) &=& \sum_{i=1}^{N} \frac{4\pi}{k(E)^2}(2l_i+1)\sin^2\phi_{l_i}(E).
+\end{eqnarray}
+
+
+\subsection{MLBW: Multilevel Breit-Wigner}
+
+\subsubsection{Data Format}
+The data required by MLBW calculation are the same as that of SLBW.
+
+
+\subsubsection{Mathematical Theory}
+
+
+
+\subsection{R-M: Reich Moore}
+
+\subsubsection{Data Format}
+
+\subsubsection{Mathematical Theory}
+
+
+
+
+
