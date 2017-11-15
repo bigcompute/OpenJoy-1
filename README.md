@@ -7,4 +7,6 @@ Special thanks to IAPCM, Beijing China for the guildence in middle stage of the 
 
 Special thanks to NERS Department, University of Michigan for the guildence in the certain methods used in the sofware
 
+Some parts are inspired by the OpenMC source code developed at MIT
+
 Future integration with the NJOY2016 and NJOY21 is visioned, but not began
