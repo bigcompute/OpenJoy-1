@@ -28,8 +28,8 @@
 int main(int argc, const char * argv[]) {
     
     /* Read ACE Library */
-    ADLS adls("/Users/changyuan/Desktop/ace.db");
-    adls.insertACELibrary("/Users/changyuan/LANL/MCNP_DATA/xsdir");
+    ADLS adls("/ace.db");
+    adls.insertACELibrary("/ADS/xsdir");
 
     auto andata = adls.getNeutronData("5010", "70c");
 
