@@ -20,4 +20,8 @@ ENDF:
 2. Extract ENDF record into a computational friendly format
 3. Cross section reconstruction and linearization in resolved resonance regions for SLBW, MLBW, AA, and RM expression
 
-Special thanks to the encouragement from IAPCM Beijing
+Complation requires the library:
+
+- Protobuffer run time library V2.6.1 or newer
+
+Special thanks to the encouragement and guidance from IAPCM Beijing
