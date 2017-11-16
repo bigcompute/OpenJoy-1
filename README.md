@@ -1,8 +1,7 @@
 
 # OpenJoy
 
-/*
-LISCENSE
+-- LISCENSE --
 
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
@@ -20,7 +19,9 @@ LISCENSE
   limitations under the License.
 
 This sofware is not part of any project of any academic entity, company or organization.
-*/
+
+-- END OF LISCENSE --
+
 
 This is work intending for simplying the usage for ACE/ENDF nuclear data files
 This work is very very small portion compared to what a big system like NJOY done
