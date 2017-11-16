@@ -1,4 +1,4 @@
-//
+path//
 //  main.cpp
 //  OpenJOY
 //
@@ -28,8 +28,8 @@
 int main(int argc, const char * argv[]) {
     
     /* Read ACE Library */
-    ADLS adls("/ace.db");
-    adls.insertACELibrary("/ADS/xsdir");
+    ADLS adls("/path/to/new_ace_db_file_you_name.db");
+    adls.insertACELibrary("/path/to/ace_library");
 
     auto andata = adls.getNeutronData("5010", "70c");
 
