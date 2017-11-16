@@ -18,8 +18,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 
-This sofware is not part of any project of any academic entity, company or organization.
-
 -- END OF LISCENSE --
 
 
