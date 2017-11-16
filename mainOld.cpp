@@ -637,7 +637,7 @@ int main(int argc, const char * argv[]) {
      auto token = IO::split(line);
     
     //ADLS adls("/Users/changyuan/Desktop/ace.db");
-    // adls.insertACELibrary("/Users/changyuan/LANL/MCNP_DATA/xsdir");
+    // adls.insertACELibrary("/Users/changyuan/ADS/xsdir");
 
     auto andata = adls.getNeutronData("5010", "70c");
 
