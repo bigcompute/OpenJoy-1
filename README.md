@@ -43,4 +43,3 @@ Complation requires the library:
 
 - Protobuffer run time library V2.6.1 or newer
 
-Special thanks to the encouragement and guidance from IAPCM Beijing
