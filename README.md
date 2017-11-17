@@ -1,6 +1,6 @@
 
 # OpenJoy
-(Not ready for use, for peer advsing for partner, coorperation participants are not listed now)
+(Not ready for use, for peer advsing for partner)
 
 -- LISCENSE --
 
@@ -44,3 +44,4 @@ Complation requires the library:
 
 - Protobuffer run time library V2.6.1 or newer
 
+Special thanks to IAPCM Beijing for the encouragement and guildance
