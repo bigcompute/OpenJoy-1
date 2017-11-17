@@ -44,4 +44,11 @@ Complation requires the library:
 
 - Protobuffer run time library V2.6.1 or newer
 
+Getting start:
+
+Check the class interface:
+
+ADLS.hpp for ACE library
+NDLS.hpp for ENDF library
+
 Special thanks to IAPCM Beijing for the encouragement and guildance
