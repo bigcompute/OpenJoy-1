@@ -1,4 +1,3 @@
-
 # OpenJoy
 (Not ready for use, for peer advising with partners)
 
@@ -26,7 +25,7 @@ This is work intending for simplying the usage for ACE/ENDF nuclear data files
 This work is very very small portion compared to what a big system like NJOY done
 But we derived the code from first principles
 
-Currently we support:
+## Currently we support:
 
 ACE:
 
