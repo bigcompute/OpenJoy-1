@@ -83,8 +83,10 @@ message Xsec {
 };
 
 message Reaction {
+
 	required int64 MT  = 1;
 	required Xsec xsec = 8;
+	
 };
 
 message NeutronData {
