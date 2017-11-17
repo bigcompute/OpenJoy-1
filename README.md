@@ -1,6 +1,6 @@
 
 # OpenJoy
-(Not ready for use, for peer advsing for partner)
+(Not ready for use, for peer advising with partners)
 
 -- LISCENSE --
 
