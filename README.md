@@ -21,6 +21,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 
 -- END OF LISCENSE --
 
+## Purpose
 
 This is work intending for simplying the usage for ACE/ENDF nuclear data files
 This work is very very small portion compared to what a big system like NJOY done
@@ -47,6 +48,7 @@ Protobuffer run time library V2.6.1 or newer
 Check the class interface:
 
 ADLS.hpp for ACE library
+
 NDLS.hpp for ENDF library
 
 ## ACE Protocol
