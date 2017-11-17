@@ -48,4 +48,4 @@ Check the class interface:
 ADLS.hpp for ACE library
 NDLS.hpp for ENDF library
 
-Special thanks to IAPCM Beijing for the encouragement and guildance
+### Special thanks to IAPCM Beijing for the encouragement and guildance
